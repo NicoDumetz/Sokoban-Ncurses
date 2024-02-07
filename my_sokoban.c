@@ -5,8 +5,9 @@
 ** placeholder
 */
 
-
+#include "include/my_printf.h"
 #include "include/my_sokoban.h"
+
 
 void moove(char **map, struct player *player, int ch, struct player *flags)
 {
@@ -137,6 +138,13 @@ int my_sokoban(int ac, char **av)
 
 int main(int ac, char **av)
 {
+    if (my_strcmp(av[1], "-h") == 0) {
+        my_printf("USAGE\n     ./my_sokoban map\nDESCRIPTION\n     map file");
+        my_printf("representing the warehouse map, containing ‘#’ for walls");
+        my_printf(",\n          ‘P’ for the player, ‘X’ for boxes and ‘O’ ");
+        my_printf("for storage locations.\n");
+        return 0;
+    }
     if (ac != 2)
         return 84;
     return my_sokoban(ac, av);

@@ -20,12 +20,15 @@ CFLAGS += -g
 all:	$(NAME)
 
 $(NAME):	$(OBJ)
-	gcc -o $(NAME) $(OBJ) -lncurses
+	cd my_printf/ && make
+	gcc -o $(NAME) $(OBJ) $(CFLAGS) -L./my_printf/ -lmy -lncurses
 
 clean:
-	rm -f $(OBJ)
+	cd my_printf/ && make clean
+	rm *.o
 
 fclean:		clean
+	cd my_printf/ && make fclean
 	rm -f $(NAME)
 
 re:	fclean all

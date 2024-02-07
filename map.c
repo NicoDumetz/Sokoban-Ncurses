@@ -5,6 +5,8 @@
 ** map of ncurses in array
 */
 #include "include/my_sokoban.h"
+#include "include/my_printf.h"
+
 
 static int len_tab(char *str)
 {

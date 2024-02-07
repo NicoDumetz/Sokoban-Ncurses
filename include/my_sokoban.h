@@ -31,4 +31,5 @@ void free_array(char **world);
 struct player *get_point(char **map, struct player *flags);
 int number_point(char **map);
 int verify_map(char **map);
+int my_strcmp(char const *s1, char const *s2);
 #endif

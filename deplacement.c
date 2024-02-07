@@ -6,6 +6,8 @@
 */
 
 #include "include/my_sokoban.h"
+#include "include/my_printf.h"
+
 
 void left(char **map, struct player *player, struct player *flags)
 {
@@ -77,4 +79,22 @@ void go_up(char **map, struct player *player)
         map[player->x][player->y] = ' ';
         player->x -= 1;
     }
+}
+
+int my_strcmp(char const *s1, char const *s2)
+{
+    int index;
+
+    for (index = 0; s1[index] != '\0' || s2[index] != '\0'; index++) {
+        if (s1[index] > s2[index])
+            return 1;
+        if (s2[index] > s1[index])
+            return -1;
+    }
+    if ( s1[index] == '\0' && s2[index] == '\0')
+        return 0;
+    if (s1[index] != '\0')
+        return -1;
+    else
+        return 1;
 }
