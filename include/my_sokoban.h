@@ -32,4 +32,7 @@ struct player *get_point(char **map, struct player *flags);
 int number_point(char **map);
 int verify_map(char **map);
 int my_strcmp(char const *s1, char const *s2);
+char **cpy_array(char **dest, char **src, struct player *player);
+void set_player(struct player *player, char **map);
+int loose(char **map, struct player *flags, struct player *player);
 #endif

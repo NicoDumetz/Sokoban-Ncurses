@@ -44,37 +44,8 @@ static int winnable(char **map, struct player *flags, struct player *player)
     return win;
 }
 
-static int verify_x(char **map, int i, int j, struct player *flags)
-{
-    if (map[i][j] != 'X')
-        return 0;
-    for (int k = 0; flags[k].x != -1; k++) {
-        if (flags[k].x == j && flags[k].y == i)
-            return 0;
-    }
-    if (map[i + 1][j] == '#' && map[i][j - 1] == '#')
-        return 1;
-    if (map[i][j - 1] == '#' && map[i - 1][j] == '#')
-        return 1;
-    if (map[i - 1][j] == '#' && map[i][j + 1] == '#')
-        return 1;
-    if (map[i][j + 1] == '#' && map[i + 1][j] == '#')
-        return 1;
-}
-
-static int loose(char **map, struct player *flags, struct player *player)
-{
-    int loose = 0;
-
-    for (int i = 0; map[i]; i++) {
-        for (int j = 0; map[i][j]; j++) {
-            loose = verify_x(map, i, j, flags) == 1 ? 1 : loose;
-        }
-    }
-    return loose;
-}
-
-static int game(char **map, struct player *player, struct player *flags)
+static int game(char **map, struct player *player, struct player *flags, char
+    **cpy_map)
 {
     int ch;
 
@@ -84,17 +55,20 @@ static int game(char **map, struct player *player, struct player *flags)
     if (winnable(map, flags, player) == 1)
         return 0;
     if (loose(map, flags, player) == 1)
-        return 0;
+        return 1;
     ch = getch();
     moove(map, player, ch, flags);
     write_point(map, flags);
     if (ch == 27)
         return 1;
+    if (ch == ' ')
+        map = cpy_array(map, cpy_map, player);
     refresh();
     return 5;
 }
 
-int ncurses(char **map, struct player *player, struct player *flags)
+int ncurses(char **map, struct player *player, struct player *flags, char
+    **cpy_map)
 {
     int win;
 
@@ -103,7 +77,7 @@ int ncurses(char **map, struct player *player, struct player *flags)
     noecho();
     cbreak();
     while (true) {
-        win = game(map, player, flags);
+        win = game(map, player, flags, cpy_map);
         if (win < 3)
             break;
     }
@@ -111,7 +85,7 @@ int ncurses(char **map, struct player *player, struct player *flags)
     return win;
 }
 
-static void set_player(struct player *player, char **map)
+void set_player(struct player *player, char **map)
 {
     for (int i = 0; map[i]; i++) {
         for (int j = 0; map[i][j]; j++) {
@@ -124,6 +98,7 @@ static void set_player(struct player *player, char **map)
 int my_sokoban(int ac, char **av)
 {
     char **map = get_map(av);
+    char **cpy_map = get_map(av);
     struct player player;
     struct player *flags = get_point(map, flags);
     int win;
@@ -131,8 +106,9 @@ int my_sokoban(int ac, char **av)
     if (verify_map(map) == 84)
         return 84;
     set_player(&player, map);
-    win = ncurses(map, &player, flags);
+    win = ncurses(map, &player, flags, cpy_map);
     free_array(map);
+    free_array(cpy_map);
     return win;
 }
 

@@ -7,7 +7,8 @@
 
 SRC	=	my_sokoban.c \
 		map.c \
-		deplacement.c
+		deplacement.c \
+		manage_map.c
 
 OBJ_TEST=	$(SRC_TEST:.c=.o)
 
