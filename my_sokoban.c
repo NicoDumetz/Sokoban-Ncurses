@@ -81,13 +81,13 @@ static int game(char **map, struct player *player, struct player *flags)
     clear();
     for (int i = 0; map[i]; i++)
         printw("%s\n", map[i]);
-    ch = getch();
-    moove(map, player, ch, flags);
-    write_point(map, flags);
     if (winnable(map, flags, player) == 1)
         return 0;
     if (loose(map, flags, player) == 1)
         return 0;
+    ch = getch();
+    moove(map, player, ch, flags);
+    write_point(map, flags);
     if (ch == 27)
         return 1;
     refresh();
