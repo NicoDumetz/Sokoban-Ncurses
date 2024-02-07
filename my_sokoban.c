@@ -67,8 +67,8 @@ static int game(char **map, struct player *player, struct player *flags, char
     return 5;
 }
 
-int ncurses(char **map, struct player *player, struct player *flags, char
-    **cpy_map)
+static int ncurses(char **map, struct player *player, struct player *flags,
+    char **cpy_map)
 {
     int win;
 
