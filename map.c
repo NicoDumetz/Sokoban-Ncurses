@@ -56,9 +56,14 @@ char **get_map(char **av)
     char *str;
     int rsize;
 
-    stat(av[1], &file);
+    if (stat(av[1], &file) == -1)
+        exit(84);
     size = file.st_size;
+    if (size == 0)
+        exit(84);
     fd = open(av[1], O_RDONLY);
+    if (fd == -1)
+        exit(84);
     str = malloc(sizeof(char) * size + 1);
     rsize = read(fd, str, size);
     str[rsize] = '\0';
