@@ -11,7 +11,7 @@
 
 void moove(char **map, struct player *player, int ch, struct player *flags)
 {
-    if (ch == KEY_UP && map[player->x - 1][player->y] != '#')
+    if (ch == KEY_UP && player->x > 0 && map[player->x - 1][player->y] != '#')
         go_up(map, player);
     if (ch == KEY_DOWN && map[player->x + 1][player->y] != '#')
         down(map, player);

@@ -30,14 +30,14 @@ static int verify_x(char **map, int i, int j, struct player *flags)
     if ((map[i + 1][j] == '#' || map[i + 1][j] == 'X') && (map[i][j - 1] ==
     '#' || map[i][j - 1] == 'X'))
         return 1;
+    if ((map[i][j + 1] == '#' || map[i][j + 1] == 'X') && (map[i + 1][j] ==
+    '#' || map[i + 1][j] == 'X'))
+        return 1;
     if ((map[i][j - 1] == '#' || map[i][j - 1] == 'X') && (map[i - 1][j] ==
     '#' || map[i - 1][j] == 'X'))
         return 1;
     if ((map[i - 1][j] == '#' || map[i - 1][j] == 'X') && (map[i][j + 1] ==
     '#' || map[i][j + 1] == 'X'))
-        return 1;
-    if ((map[i][j + 1] == '#' || map[i][j + 1] == 'X') && (map[i + 1][j] ==
-    '#' || map[i + 1][j] == 'X'))
         return 1;
 }
 
