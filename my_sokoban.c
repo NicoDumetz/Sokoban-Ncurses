@@ -45,23 +45,19 @@ static int winnable(char **map, struct player *flags, struct player *player)
 
 static int verify_x(char **map, int i, int j, struct player *flags)
 {
-    int compt = 0;
-
     if (map[i][j] != 'X')
         return 0;
-    for (int i = 0; flags[i].x != -1; i++) {
-        if (flags[i].x == j && flags[i].y == i)
+    for (int k = 0; flags[k].x != -1; k++) {
+        if (flags[k].x == j && flags[k].y == i)
             return 0;
     }
-    if (map[i + 1][j] == '#')
-        compt += 1;
-    if (map[i - 1][j] == '#')
-        compt += 1;
-    if (map[i][j + 1] == '#')
-        compt += 1;
-    if (map[i][j - 1] == '#')
-        compt += 1;
-    if (compt >= 2)
+    if (map[i + 1][j] == '#' && map[i][j - 1] == '#')
+        return 1;
+    if (map[i][j - 1] == '#' && map[i - 1][j] == '#')
+        return 1;
+    if (map[i - 1][j] == '#' && map[i][j + 1] == '#')
+        return 1;
+    if (map[i][j + 1] == '#' && map[i + 1][j] == '#')
         return 1;
 }
 
@@ -124,7 +120,7 @@ static void set_player(struct player *player, char **map)
     }
 }
 
-int main(int ac, char **av)
+int my_sokoban(int ac, char **av)
 {
     char **map = get_map(av);
     struct player player;
@@ -135,4 +131,11 @@ int main(int ac, char **av)
     win = ncurses(map, &player, flags);
     free_array(map);
     return win;
+}
+
+int main(int ac, char **av)
+{
+    if (ac != 2)
+        return 84;
+    return my_sokoban(ac, av);
 }
