@@ -114,3 +114,19 @@ struct player *get_point(char **map, struct player *flags)
     flags[nbr].x = -1;
     return flags;
 }
+
+static void cond(char **map, int i, int j)
+{
+    if ( map[i][j] != ' ' && map[i][j] != 'P' && map[i][j] != 'X' &&
+    map[i][j] != 'O' && map[i][j] != '#')
+        exit(84);
+}
+
+int verify_map(char **map)
+{
+    for (int i = 0; map[i]; i++) {
+        for (int j = 0; map[i][j]; j++) {
+            cond(map, i, j);
+        }
+    }
+}

@@ -30,5 +30,5 @@ void go_up(char **map, struct player *player);
 void free_array(char **world);
 struct player *get_point(char **map, struct player *flags);
 int number_point(char **map);
-
+int verify_map(char **map);
 #endif

@@ -86,7 +86,7 @@ static int game(char **map, struct player *player, struct player *flags)
     if (winnable(map, flags, player) == 1)
         return 0;
     if (loose(map, flags, player) == 1)
-        return 1;
+        return 0;
     if (ch == 27)
         return 1;
     refresh();
@@ -127,6 +127,8 @@ int my_sokoban(int ac, char **av)
     struct player *flags = get_point(map, flags);
     int win;
 
+    if (verify_map(map) == 84)
+        return 84;
     set_player(&player, map);
     win = ncurses(map, &player, flags);
     free_array(map);
