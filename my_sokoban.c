@@ -52,6 +52,7 @@ static int game(char **map, struct player *player, struct player *flags, char
     clear();
     for (int i = 0; map[i]; i++)
         printw("%s\n", map[i]);
+    refresh();
     if (winnable(map, flags, player) == 1)
         return 0;
     if (loose(map, flags, player) == 1)
