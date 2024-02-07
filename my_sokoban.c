@@ -138,6 +138,8 @@ int my_sokoban(int ac, char **av)
 
 int main(int ac, char **av)
 {
+    if (ac != 2)
+        return 84;
     if (my_strcmp(av[1], "-h") == 0) {
         my_printf("USAGE\n     ./my_sokoban map\nDESCRIPTION\n     map file");
         my_printf("representing the warehouse map, containing ‘#’ for walls");
@@ -145,7 +147,5 @@ int main(int ac, char **av)
         my_printf("for storage locations.\n");
         return 0;
     }
-    if (ac != 2)
-        return 84;
     return my_sokoban(ac, av);
 }
